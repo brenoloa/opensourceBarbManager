@@ -1,7 +1,6 @@
 package com.manager.barbeariamanagerbl.barbearia;
 
 
-import com.manager.barbeariamanagerbl.usuarios.gestor.Gestor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -33,11 +32,6 @@ public class Barbearia {
     private String rua;
     private String cep;
     private String numero;
-
-    @ManyToOne
-    @JoinColumn(name = "gestor_id")
-    private Gestor gestor;
-
 
     public String getEndereçoFormatado(){
         return this.rua + " " + this.numero + " - " + this.cep;

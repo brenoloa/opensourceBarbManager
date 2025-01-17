@@ -7,12 +7,15 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Getter
@@ -45,7 +48,24 @@ public class AuthController {
 
     }
 
-    @PostMapping("/register")
+    @PostMapping("/registro")
+    public ResponseEntity<?> registro(@RequestBody User user) {
+        Optional<User> userOptional = userRepository.findByEmail(user.getEmail());
+        if (userOptional.isPresent()) {
+            return ResponseEntity.badRequest().body("Email ja existe");
+        }
+
+        userRepository.save(user);
+        String token = tokenService.gerarToken(user);
+        return ResponseEntity.ok(token);
+    }
+
+    @GetMapping("/getuser")
+    public List<User> getUser() {
+        return userRepository.findAll();
+    }
+
+    /*@PostMapping("/register")
     public ResponseEntity<?> register(@RequestParam String email) {
         Optional<User> user = userRepository.findByEmail(email);
 
@@ -68,6 +88,6 @@ public class AuthController {
         userRepository.save(novoUsuario);
         String token = tokenService.gerarToken(novoUsuario);
         return ResponseEntity.ok(token);
-    }
+    }*/
 
 }
