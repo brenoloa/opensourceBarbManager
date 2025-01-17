@@ -1,6 +1,7 @@
 package com.manager.barbeariamanagerbl.usuarios.barbeiro;
 
 import com.manager.barbeariamanagerbl.barbearia.Barbearia;
+import com.manager.barbeariamanagerbl.usuarios.user.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 @Setter
 @Getter
 @RequiredArgsConstructor
-public class Barbeiro {
+public class Barbeiro extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,10 +28,6 @@ public class Barbeiro {
     private String nome;
 
     private String telefone;
-
-    private String email;
-
-    private String senha;
 
     private String cargo = "BARBEIRO";
 

@@ -1,6 +1,7 @@
 package com.manager.barbeariamanagerbl.usuarios.cliente;
 
 import com.manager.barbeariamanagerbl.barbearia.Barbearia;
+import com.manager.barbeariamanagerbl.usuarios.user.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 @Getter
 @RequiredArgsConstructor
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente extends User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,10 +28,6 @@ public class Cliente {
     private String nome;
 
     private String telefone;
-
-    private String email;
-
-    private String senha;
 
     private String cargo = "CLIENTE";
 
