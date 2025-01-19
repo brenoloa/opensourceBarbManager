@@ -29,6 +29,7 @@ public class Barbearia {
 
     private int logo_id = 0;
 
+    private String telefone;
     private String rua;
     private String cep;
     private String numero;

@@ -31,4 +31,31 @@ public class BarbeariaService {
     public Optional<Barbearia> exibirPorId(int id){
         return barbeariaRepository.findById(id);
     }
+
+    public void atualizar(int id, Barbearia barbearia){
+        Barbearia barbeariaAtual = barbeariaRepository.findById(id).get();
+
+        if (barbearia.getCep() != null){
+            barbeariaAtual.setCep(barbearia.getCep());
+        }
+        if (barbearia.getNome() != null){
+            barbeariaAtual.setNome(barbearia.getNome());
+        }
+        if (barbearia.getTelefone() != null){
+            barbeariaAtual.setTelefone(barbearia.getTelefone());
+        }
+        if (barbearia.getCnpj() != null){
+            barbeariaAtual.setCnpj(barbearia.getCnpj());
+        }
+
+        if (barbearia.getNumero() != null){
+            barbeariaAtual.setNumero(barbearia.getNumero());
+        }
+
+        if (barbearia.getRua() != null){
+            barbeariaAtual.setRua(barbearia.getRua());
+        }
+        barbeariaRepository.save(barbeariaAtual);
+
+    }
 }

@@ -64,29 +64,4 @@ public class AuthController {
         return userRepository.findAll();
     }
 
-    /*@PostMapping("/register")
-    public ResponseEntity<?> register(@RequestParam String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-
-        if (user.isPresent()) {
-            return ResponseEntity.badRequest().body("Email ja registrado.");
-
-        }
-
-        User novoUsuario = new User() {
-            @Override
-            public String getEmail() {
-                return super.getEmail();
-            }
-
-            @Override
-            public String getPassword() {
-                return super.getPassword();
-            }
-        };
-        userRepository.save(novoUsuario);
-        String token = tokenService.gerarToken(novoUsuario);
-        return ResponseEntity.ok(token);
-    }*/
-
 }
