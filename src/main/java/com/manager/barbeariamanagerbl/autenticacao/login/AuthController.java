@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
@@ -30,22 +29,22 @@ public class AuthController {
     private final UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String senha) {
+    public ResponseEntity<?> login(@RequestBody User userDTO) {
         try {
-            User user = userRepository.findByEmail(email).orElseThrow(() -> new UserPrincipalNotFoundException("User nao encontrado"));
 
-            if (!user.getPassword().equals(senha)) {
+            User user = userRepository.findByEmail(userDTO.getEmail())
+                    .orElseThrow(() -> new UserPrincipalNotFoundException("Usuário não encontrado"));
+
+
+            if (userDTO.getPassword().equals(user.getPassword())) {
                 String token = tokenService.gerarToken(user);
-                return ResponseEntity.ok(token);
-            }
-            else  {
-                return ResponseEntity.badRequest().body("Senha invalida");
-            }
 
+                return ResponseEntity.ok(new ResponseDTO(user.getNome(), token));
+            }
         } catch (UserPrincipalNotFoundException e) {
-            throw new RuntimeException("Usuário não encontrado");
+            return ResponseEntity.badRequest().build();
         }
-
+        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/registro")
